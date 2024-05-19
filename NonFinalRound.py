@@ -16,12 +16,13 @@ class NonFinalRound:
             for num in sb.keys():
                 if sb[num] == highest_marks:
                     recalled.append(num)
-        return recalled
+        return sorted(recalled)
     
     def _get_remaining(scoreboard, recalled_so_far):
         output = scoreboard.copy()
         for num in recalled_so_far:
-            output.pop(num)
+            if num in output.keys():
+                output.pop(num)
         return output
     
 
