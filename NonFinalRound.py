@@ -13,14 +13,16 @@ class NonFinalRound:
         recalled = []
         sb = self.scoreboard.copy()
         while(len(recalled)<self.min_to_qualify):
+            #print(f"{len(recalled)} recalled so far")
             sb = NonFinalRound._get_remaining(sb, recalled)
             highest_marks = max(sb.values())
+            #print(f"Looking for couples with {highest_marks} marks")
             if highest_marks == 0:
                 break
             for num in sb.keys():
                 if sb[num] == highest_marks:
                     recalled.append(num)
-        print(f"{len(recalled)} couples recalled.")
+        print(f"{len(recalled)} couples recalled:")
         return sorted(recalled)
     
     def _get_remaining(scoreboard, recalled_so_far):
@@ -50,10 +52,10 @@ class NonFinalRound:
                 elif index == 3:
                     dances = int(line[0])
                     print(f"- {dances} dance{'s' if dances>1 else ''}")
-                elif index - 4 % (couples+1) == 0:
+                elif (index - 4) % (couples+1) == 0:
                     print(f"Processing {line[0]}")
                 else:
-                    if line[0] not in marks.keys():
+                    if int(line[0]) not in marks.keys():
                         marks[int(line[0])] = 0
                     marks[int(line[0])] += line[1:].count("x")
             self.scoreboard = marks   
